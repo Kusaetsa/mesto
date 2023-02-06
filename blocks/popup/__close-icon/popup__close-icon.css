@@ -1,0 +1,25 @@
+.popup__close-icon {
+    position: absolute;
+    top: calc(0px - (34px + 8px));
+    right: calc(0px - (34px + 8px));
+    background-image: url(../../../images/close-icon-disabled.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 32px;
+    height: 32px;
+    transition: opacity .2s linear;
+}
+
+.popup__close-icon:hover {
+    opacity: .6;
+}
+
+
+@media screen and (max-width: 670px) {
+    .popup__close-icon {
+        width: 20px;
+        height: 20px;
+        top: calc(0px - (18px + 16px));
+        right: 0;
+    }
+}
