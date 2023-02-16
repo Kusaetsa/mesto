@@ -1,26 +1,24 @@
-.profile__edit-button {
+.edit-button {
     display: block;
-    background-image: url(../../../images/edit-button-disabled.svg);
+    background-color: #000;
+    background-image: url(../../images/edit-button-disabled.svg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 24px;
     height: 24px;
-    align-self: end;
     transition: opacity .2s linear;
 }
 
-.profile__edit-button:hover {
+.edit-button:hover {
     opacity: .6;
 }
 
 @media screen and (max-width: 670px) {
-    .profile__edit-button {
+    .edit-button {
         margin: 0;
         height: 18px;
         width: 18px;
-        position: absolute;
-        right: 19px;
-        bottom: 28px;
+
     }
 }
