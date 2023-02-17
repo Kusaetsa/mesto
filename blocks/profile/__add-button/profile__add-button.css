@@ -1,4 +1,4 @@
-.pfottile__add-button {
+.profile__add-button {
     width: 150px;
     height: 50px;
     border: 2px solid white;
@@ -11,12 +11,12 @@
     transition: opacity .2s linear;
 }
 
-.pfottile__add-button:hover {
+.profile__add-button:hover {
     opacity: .6;
 }
 
 @media screen and (max-width: 670px) {
-    .pfottile__add-button {
+    .profile__add-button {
         width: 282px;
     }
 }
