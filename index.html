@@ -21,15 +21,11 @@
                 <div class="profile__image"></div>
                 <div class="profile__description">
                     <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <form class="profile__edit-button-container">
-                        <button class="profile__edit-button" type="button" name="edit-button"></button>
-                    </form>
+                    <button class="profile__edit-button" type="button" name="edit-button"></button>
                     <p class="profile__about">Исследователь океана</p>
                 </div>
             </div>
-            <form class="profile__add-button-container">
-                <button class="profile__add-button" type="submit" name="add-button"></button>
-            </form> 
+            <button class="profile__add-button" type="button" name="add-button"></button>
         </section>
 
         <section class="elements">
@@ -37,9 +33,7 @@
                 <img src="./images/photo-altai.jpg" class="element__image" alt="горная река">
                 <div class="element__description">
                     <h2 class="element__title">Алтайский край</h2>
-                    <form class="element__like-container">
-                        <button class="element__like" type="button" name="like-button"></button>
-                    </form>
+                    <button class="element__like" type="button" name="like-button"></button>
                 </div>
             </article>
 
@@ -47,9 +41,7 @@
                 <img src="./images/photo-kaliningrad.jpg" class="element__image" alt="кафедральный собор">
                 <div class="element__description">
                     <h2 class="element__title">Калининград</h2>
-                    <form class="element__like-container">
-                        <button class="element__like" type="button" name="like-button"></button>
-                    </form>
+                    <button class="element__like" type="button" name="like-button"></button>
                 </div>
             </article>
 
@@ -57,9 +49,7 @@
                 <img src="./images/photo-kamchatka.jpg" class="element__image" alt="камчатка">
                 <div class="element__description">
                     <h2 class="element__title">Камчатка</h2>
-                    <form class="element__like-container">
-                        <button class="element__like" type="button" name="like-button"></button>
-                    </form>
+                    <button class="element__like" type="button" name="like-button"></button>
                 </div>
             </article>
 
@@ -67,9 +57,7 @@
                 <img src="./images/photo-motornoe.jpg" class="element__image" alt="маяк в моторном">
                 <div class="element__description">
                     <h2 class="element__title">Моторное</h2>
-                    <form class="element__like-container">
-                        <button class="element__like" type="button" name="like-button"></button>
-                    </form>
+                    <button class="element__like" type="button" name="like-button"></button>
                 </div>
             </article>
 
@@ -77,9 +65,7 @@
                 <img src="./images/photo-tula.jpg" class="element__image" alt="тульская область">
                 <div class="element__description">
                     <h2 class="element__title">Тульская область</h2>
-                    <form class="element__like-container">
-                        <button class="element__like" type="button" name="like-button"></button>
-                    </form>
+                    <button class="element__like" type="button" name="like-button"></button>
                 </div>
             </article>
 
@@ -87,9 +73,7 @@
                 <img src="./images/photo-lenoblast.jpg" class="element__image" alt="ленинградская область">
                 <div class="element__description">
                     <h2 class="element__title">Ленинградская область</h2>
-                    <form class="element__like-container">
                         <button class="element__like" type="button" name="like-button"></button>
-                    </form>
                 </div>
             </article>
         </section>
@@ -102,17 +86,16 @@
 
     <section class="popup">
         <div class="popup__container">
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popup-form" method="post">
-            <fieldset class="popup__input-container">
-                <input type="text" class="popup__item popup__item_el_name" name="name" value="Жак-Ив Кусто" required>
-                <input type="text" class="popup__item popup__item_el_about" name="about" value="Исследователь океана">
-                <button type="submit" class="popup__button" name="popup-button">Сохранить</button>
-            </fieldset>
-        </form>
-        <form>
+            <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__close-icon" type="button" name="close-popup"></button>
-        </form>
+            <form class="popup__form" name="popup-form" method="post">
+                <fieldset class="popup__input-container">
+                    <input type="text" class="popup__item popup__item_el_name" name="name" value="Жак-Ив Кусто" required>
+                    <input type="text" class="popup__item popup__item_el_about" name="about" value="Исследователь океана">
+                    <button type="submit" class="popup__button" name="popup-button">Сохранить</button>
+                </fieldset>
+            </form>
+
         </div>
     </section>
 
