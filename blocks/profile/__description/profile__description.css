@@ -16,6 +16,7 @@
         row-gap: 14px;
         column-gap: 10px;
         justify-items: center;
-        transform: translate(10px, 0px);
+        transform: translate(13px, 0px);
+        max-width: calc(282px - (16px + 18px + 13px));
     }
 }

@@ -11,8 +11,3 @@
     background-color: rgba(0, 0, 0, .5);
 }
 
-@media screen and (max-width: 670px) {
-    .popup {
-        padding-top: 123px;
-    }
-}

@@ -4,6 +4,7 @@
     border: 2px solid white;
     background-color: #000;
     background-image: url(../../../images/add-button-disabled.svg);
+    background-size: 22px;
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;
@@ -21,5 +22,6 @@
     .profile__add-button {
         width: 282px;
         margin-left: 0;
+        background-size: 16px;
     }
 }

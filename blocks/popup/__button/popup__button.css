@@ -9,6 +9,7 @@
     font-weight: 400;
     border: none;
     border-radius: 2px;
+    cursor: pointer;
 }
 
 .popup__button:hover {
