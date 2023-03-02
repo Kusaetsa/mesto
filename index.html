@@ -92,7 +92,7 @@
     </footer>
 
 
-    <section class="popup">
+    <section class="popup_edit-form popup">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
             <button class="popup__close-icon" type="button" name="close-edit-popup"></button>
@@ -106,21 +106,21 @@
         </div>
     </section>
 
-    <section class="popup">
+    <section class="popup_add-card popup">
         <div class="popup__container">
             <h2 class="popup__title">Новое место</h2>
             <button class="popup__close-icon" type="button" name="close-add-popup"></button>
             <form class="popup__form" name="add-popup-form" method="post">
                 <fieldset class="popup__input-container">
                     <input type="text" class="popup__item popup__item_el_place" name="place" placeholder="Название" required>
-                    <input type="text" class="popup__item popup__item_el_link" name="link" placeholder="Ссылка" required>
+                    <input type="url" class="popup__item popup__item_el_link" name="link" placeholder="Ссылка" required>
                     <button type="submit" class="popup__button" name="add-popup-button">Создать</button>
                 </fieldset>
             </form>
         </div>
     </section>
 
-    <section class="popup popup_image">
+    <section class="popup_image popup">
         <div class="popup__container">
             <img src="#" class="popup__image" alt="изображение пользователя">
             <p class="popup__caption"></p>
@@ -140,6 +140,8 @@
             </div>
         </article>
     </template> 
+
+<script src="./scripts/cards.js"></script>    
 <script src="./scripts/index.js"></script>
 </body>
 </html>
