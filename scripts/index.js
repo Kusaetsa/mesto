@@ -44,18 +44,15 @@ const handleLike = (evt) => {
     thisLike.classList.toggle('element__like_active'); //переключатель класса нажатого сердечка
 }
 
-const openImage = (evt) => {
-    const thisItem = evt.target.closest('.element'); //определяем родителя кликнутого элемента
-    const thisImage = thisItem.querySelector('.element__image'); //находим изображение
-    const thisCaption = thisItem.querySelector('.element__title'); //находим название места
-    popupBg.src = thisImage.src; //выводим актуальную картинку
-    imageCaption.textContent = thisCaption.textContent; //выводим актуальную подпись
+const openImage = ({name, link}) => {
+    popupBg.src = link; //выводим актуальную картинку
+    imageCaption.textContent = name; //выводим актуальную подпись
     popupImage.style.backgroundColor = 'rgba(0, 0, 0, .9)'; //затемняем фон
-    imageContainer.classList.add('popup__container_for-image');
+    imageContainer.classList.add('popup__container_for-image'); //подключаем класс модификации оболочки попапа
     openPopup(popupImage); //открываем попап с картинкой
 }
 
-function createCards({name, link}) { //создание карточки с именем и ссылкой из массива/инпутов формы
+function createCards({name, link}) { //создание карточки 
     const newCard = template.querySelector('.element').cloneNode(true); //клонировали обертку из шаблона
     const newCardImage = newCard.querySelector('.element__image'); //слой с картинкой в бэкграунде
     const newCardTitle = newCard.querySelector('.element__title'); //название места
@@ -66,33 +63,42 @@ function createCards({name, link}) { //создание карточки с им
     newCardImage.setAttribute('alt', name); //переписываем alt у картинки на значение name
     deleteButton.addEventListener('click', handleDelete); //событие удалить
     likeButton.addEventListener('click', handleLike); //событие лайк
-    newCardImage.addEventListener('click', openImage); //открыть картинку
+    newCardImage.addEventListener('click', () => {
+    openImage({name, link})
+    }); //открыть картинку
     return newCard; //возврат карточки
 }
 
-initialCards.forEach((item) => {
-    cardContainer.prepend(createCards(item)); //отрисовываем карточки из массива
+function renderCards({name, link}) { //добавление карточки на страницу
+    cardContainer.prepend(createCards({name, link})); 
+}
+
+initialCards.forEach((name, link) => { //создание и добавление карточек из массива
+  renderCards(name, link);
 })
 
 function addCard(evt) {
     evt.preventDefault();
-    // генерируем новую карточку
-    const newCard = createCards({name: placeInput.value, link: linkInput.value}); //подключаем инпуты к функции создания карточки
-    cardContainer.prepend(newCard); //добавить карточку в начало страницы
+    renderCards({name: placeInput.value, link: linkInput.value});
     addForm.reset(); //очистить форму
     closePopup(popupAddCard); 
 }
 
+const handleOpenPopupProfile = () => {
+  nameInput.value = profileName.textContent; //подтягиваем данные из инфы в профиле
+  jobInput.value = profileInfo.textContent;  
+}
+
 editButton.addEventListener('click', () => {  //открытие попапа редактирования профиля
-    openPopup(popupEditProfile);
-    nameInput.textContent = profileName.value; //подтягиваем данные 
-    jobInput.textContent = profileInfo.value;
+  handleOpenPopupProfile();
+  openPopup(popupEditProfile);
 });
 
 editForm.addEventListener('submit', changeProfileInfo); //отправка формы редактирования профиля
 
 closeEditPopup.addEventListener('click', () => { 
   closePopup(popupEditProfile) //закрытие попапа редактирования профиля
+
 }); 
 addButton.addEventListener('click', () => {
     openPopup(popupAddCard); //открытие попапа добавления карточки
