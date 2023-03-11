@@ -1,0 +1,10 @@
+.popup__form-fieldset {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+    height: 212px;
+    justify-content: space-between;
+    margin: 0;
+    width: 358px;
+}
