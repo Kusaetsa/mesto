@@ -35,6 +35,13 @@ const hiddenErrorMessage = (inputElement, validationOptions) => {
     hiddenError(inputElement, errorElement, validationOptions);
 };
 
+const clearErrorMessage = () => {
+    const inputs = Array.from(document.querySelectorAll(validationOptions.inputSelector));
+    inputs.forEach(inputElement => {
+        hiddenErrorMessage(inputElement, validationOptions);
+      });
+}
+
 const enableButton = (buttonElement, disabledButtonClass) => {
     buttonElement.removeAttribute('disabled');
     buttonElement.classList.remove(disabledButtonClass);

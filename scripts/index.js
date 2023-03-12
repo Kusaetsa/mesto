@@ -2,19 +2,11 @@
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавить класс видимости попапа
   document.addEventListener('keydown', closeByEsc); //слушатель на событие клавиши esc
-  popup.addEventListener('click', closeByOverlay); //слушатель на клик по оверлею
-  const inputs = Array.from(document.querySelectorAll('.popup__item')); 
-  inputs.forEach(inputElement => {
-    hiddenErrorMessage(inputElement, validationOptions) //скрываем сообщения об ошибках на инпутах
-      });
-  addForm.reset(); //очищаем форму добавления карточки
-  disableButton(addCardButton, validationOptions.disabledButtonClass);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened'); 
   document.removeEventListener('keydown', closeByEsc);
-  popup.removeEventListener('mousedown', closeByOverlay);
 }
 
 function changeProfileInfo(evt) { //изменение информации о пользователе
@@ -49,8 +41,6 @@ const handleLike = (evt) => {
 const openImage = ({name, link}) => {
     popupBg.src = link; //выводим актуальную картинку
     imageCaption.textContent = name; //выводим актуальную подпись
-    popupImage.style.backgroundColor = 'rgba(0, 0, 0, .9)'; //затемняем фон
-    imageContainer.classList.add('popup__container_for-image'); //подключаем класс модификации оболочки попапа
     openPopup(popupImage); //открываем попап с картинкой
 }
 
@@ -82,39 +72,36 @@ initialCards.forEach((name, link) => { //создание и добавлени�
 function addCard(evt) {
     evt.preventDefault();
     renderCards({name: placeInput.value, link: linkInput.value});
-    addForm.reset(); //очистить форму
+    formAddCard.reset(); //очистить форму
     closePopup(popupAddCard); 
 }
 
 const handleOpenPopupProfile = () => {
   nameInput.value = profileName.textContent; //подтягиваем данные из инфы в профиле
-  jobInput.value = profileInfo.textContent;  
+  jobInput.value = profileInfo.textContent;
 }
 
-editButton.addEventListener('click', () => {  //открытие попапа редактирования профиля
+buttonEdit.addEventListener('click', () => {  //открытие попапа редактирования профиля
   handleOpenPopupProfile();
+  enableButton(buttonSubmitEditForm, validationOptions.disabledButtonClass); //делаем кнопку активной по дефолту, т.к. сохранить с невалидными данными эту форму нельзя
+  clearErrorMessage(); //удаляем возможные сообщения об ошибках
   openPopup(popupEditProfile);
 });
 
-editForm.addEventListener('submit', changeProfileInfo); //отправка формы редактирования профиля
+formEdit.addEventListener('submit', changeProfileInfo); //отправка формы редактирования профиля
 
-closeEditPopup.addEventListener('click', () => { 
-  closePopup(popupEditProfile) //закрытие попапа редактирования профиля
-}); 
-
-addButton.addEventListener('click', () => {
-    openPopup(popupAddCard); //открытие попапа добавления карточки
+buttonAddCard.addEventListener('click', () => { //открытие попапа добавления карточки
+    formAddCard.reset(); //очищаем форму добавления карточки
+    disableButton(buttonSubmitAddForm, validationOptions.disabledButtonClass); //кнопка не активна по-дефолту
+    clearErrorMessage(); //удаляем возможные сообщения об ошибках
+    openPopup(popupAddCard); 
  }); 
-
- closeAddPopup.addEventListener('click', () => {
-  closePopup(popupAddCard); //закрытие попапа добавления карточки
-  addForm.reset();
-}); 
  
-addForm.addEventListener('submit', addCard); //отправка формы добавления карточки
+formAddCard.addEventListener('submit', addCard); //отправка формы добавления карточки
 
-closeImagePopup.addEventListener('click', () => {
-  closePopup(popupImage); //закрытие попапа с картинкой
-}); 
-
-
+buttonCloseList.forEach ((buttonClose) => { 
+const currentPopup = buttonClose.closest('.popup'); 
+currentPopup.addEventListener('mousedown', closeByOverlay); //слушатель для всех попапов на закрытие по оверлею
+buttonClose.addEventListener('click', () =>  //слушатели для всех иконок-крестиков на закрытие по клику 
+closePopup(currentPopup));
+});

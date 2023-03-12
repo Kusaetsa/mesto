@@ -1,4 +1,4 @@
-.popup__form-fieldset {
+.popup__form {
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -7,4 +7,12 @@
     justify-content: space-between;
     margin: 0;
     width: 358px;
+}
+
+@media screen and (max-width: 670px) {
+    .popup__form {
+        width: 238px;
+        height: 208px;
+        justify-content: flex-end;
+    }
 }
