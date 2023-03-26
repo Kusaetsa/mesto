@@ -1,3 +1,11 @@
+import Card from './card.js';
+import FormValidator from './formValidator.js';
+
+const ValidationFormEdit = new FormValidator(validationOptions, formEdit);
+ValidationFormEdit.enableValidation();
+
+const ValidationFormAddCard = new FormValidator(validationOptions, formAddCard);
+ValidationFormAddCard.enableValidation();
 
 function openPopup(popup) {
   popup.classList.add('popup_opened'); //добавить класс видимости попапа
@@ -29,51 +37,28 @@ const closeByOverlay = (evt) => {
   }
 }
 
-const handleDelete = (evt) => {
-    evt.target.closest('.element').remove(); //удаляем карточку с кликнутой урной
-}
+const openImage = (evt) => { 
+  const thisItem = evt.target.closest('.element'); //определяем родителя кликнутого элемента 
+  const thisImage = thisItem.querySelector('.element__image'); //находим изображение 
+  const thisCaption = thisItem.querySelector('.element__title'); //находим название места 
+  popupBg.src = thisImage.src; //выводим актуальную картинку 
+  imageCaption.textContent = thisCaption.textContent; //выводим актуальную подпись 
+  openPopup(popupImage); //открываем попап с картинкой 
+} 
 
-const handleLike = (evt) => {
-    const thisLike = evt.target.closest('.element__like'); //выбираем кликнутый лайк
-    thisLike.classList.toggle('element__like_active'); //переключатель класса нажатого сердечка
-}
-
-const openImage = ({name, link}) => {
-    popupBg.src = link; //выводим актуальную картинку
-    imageCaption.textContent = name; //выводим актуальную подпись
-    openPopup(popupImage); //открываем попап с картинкой
-}
-
-function createCards({name, link}) { //создание карточки 
-    const newCard = template.querySelector('.element').cloneNode(true); //клонировали обертку из шаблона
-    const newCardImage = newCard.querySelector('.element__image'); //слой с картинкой в бэкграунде
-    const newCardTitle = newCard.querySelector('.element__title'); //название места
-    const deleteButton = newCard.querySelector('.element__delete-button'); //удалить
-    const likeButton = newCard.querySelector('.element__like'); //лайк
-    newCardImage.src = link; //меняем src на значение link
-    newCardTitle.textContent = name; //меняем название места на значение name
-    newCardImage.setAttribute('alt', name); //переписываем alt у картинки на значение name
-    deleteButton.addEventListener('click', handleDelete); //событие удалить
-    likeButton.addEventListener('click', handleLike); //событие лайк
-    newCardImage.addEventListener('click', () => {
-    openImage({name, link})
-    }); //открыть картинку
-    return newCard; //возврат карточки
-}
-
-function renderCards({name, link}) { //добавление карточки на страницу
-    cardContainer.prepend(createCards({name, link})); 
-}
-
-initialCards.forEach((name, link) => { //создание и добавление карточек из массива
-  renderCards(name, link);
-})
+initialCards.forEach(({name, link}) => { 
+  const card = new Card ({name, link}, '#card-template', openImage); //создаем экземпляры класса для дефолтных карточек
+  const cardElement = card.renderCards(); //отрисовываем карточки
+  cardContainer.prepend(cardElement);
+});
 
 function addCard(evt) {
     evt.preventDefault();
-    renderCards({name: placeInput.value, link: linkInput.value});
-    formAddCard.reset(); //очистить форму
-    closePopup(popupAddCard); 
+    const card = new Card ({name: placeInput.value, link: linkInput.value}, '#card-template', openImage); //создаем экземпляр класса для новой карточки
+    const cardElement = card.renderCards(); //отрисовываем новую карточку
+    cardContainer.prepend(cardElement);
+    formAddCard.reset(); //очищаем форму
+    closePopup(popupAddCard);  //закрываем попап
 }
 
 const handleOpenPopupProfile = () => {
@@ -81,10 +66,23 @@ const handleOpenPopupProfile = () => {
   jobInput.value = profileInfo.textContent;
 }
 
+const clearAllErrors = (form) => { //очистка сообщений об ошибках для открытия форм;
+  const inputs = Array.from(form.querySelectorAll('.popup__item')); 
+  inputs.forEach((inputElement) => { //снимаем классы ошибок во всех инпутах формы
+    inputElement.classList.remove('popup__item-error_active');
+    inputElement.classList.remove('popup__item_type_error');
+  });
+  const errorMessages = Array.from(form.querySelectorAll('.popup__item-error'));
+  errorMessages.forEach((errorElemtnt) => { //очищаем все спаны с ошибками в форме
+    errorElemtnt.textContent = '';
+  });
+}
+
 buttonEdit.addEventListener('click', () => {  //открытие попапа редактирования профиля
   handleOpenPopupProfile();
-  enableButton(buttonSubmitEditForm, validationOptions.disabledButtonClass); //делаем кнопку активной по дефолту, т.к. сохранить с невалидными данными эту форму нельзя
-  clearErrorMessage(); //удаляем возможные сообщения об ошибках
+  buttonSubmitEditForm.classList.remove('popup__button_inactive');
+  buttonSubmitEditForm.removeAttribute('disabled');//делаем кнопку активной по дефолту, т.к. сохранить с невалидными данными эту форму нельзя
+  clearAllErrors(formEdit); //удаляем возможные сообщения об ошибках
   openPopup(popupEditProfile);
 });
 
@@ -92,8 +90,9 @@ formEdit.addEventListener('submit', changeProfileInfo); //отправка фо�
 
 buttonAddCard.addEventListener('click', () => { //открытие попапа добавления карточки
     formAddCard.reset(); //очищаем форму добавления карточки
-    disableButton(buttonSubmitAddForm, validationOptions.disabledButtonClass); //кнопка не активна по-дефолту
-    clearErrorMessage(); //удаляем возможные сообщения об ошибках
+    buttonSubmitAddForm.classList.add('popup__button_inactive');
+    buttonSubmitAddForm.setAttribute('disabled', true);//кнопка не активна по-дефолту
+    clearAllErrors(formAddCard); //удаляем возможные сообщения об ошибках
     openPopup(popupAddCard); 
  }); 
  
@@ -105,3 +104,6 @@ currentPopup.addEventListener('mousedown', closeByOverlay); //слушатель
 buttonClose.addEventListener('click', () =>  //слушатели для всех иконок-крестиков на закрытие по клику 
 closePopup(currentPopup));
 });
+
+
+

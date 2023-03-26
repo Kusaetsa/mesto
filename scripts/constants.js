@@ -45,7 +45,7 @@ const jobInput = document.querySelector('.popup__item_el_about'); //инпут �
 const buttonAddCard = document.querySelector('.profile__add-button'); //кнопка добавления карточки
 const formAddCard = document.querySelector('[name="add-popup-form"]'); //форма для карточек
 const cardContainer = document.querySelector('.elements'); //контейнер куда вставляем
-const template = document.getElementById('card-template').content; //шаблон
+const template = document.getElementById('card-template'); //шаблон
 const placeInput = document.querySelector('.popup__item_el_place'); //инпут названия места
 const linkInput = document.querySelector('.popup__item_el_link'); //инпут ссылки на картинку
 const popupEditProfile = document.querySelector('.popup_edit-form'); // попап редактирование профиля
@@ -55,5 +55,7 @@ const imageContainer = popupImage.querySelector('.popup__container'); //полу
 const popupBg = popupImage.querySelector('.popup__image'); //получаем изображение
 const imageCaption = popupImage.querySelector('.popup__caption'); //получаем подпись к изображению
 const buttonSubmitAddForm = document.querySelector('[name="add-popup-button"]'); //кнопка "создать" - добавление новой карточки
-const buttonSubmitEditForm = document.querySelector('[name="edit-popup-button"]'); 
+const buttonSubmitEditForm = document.querySelector('[name="edit-popup-button"]'); //сабмит формы пользователя
 const buttonCloseList = document.querySelectorAll('.popup__close-icon'); //псевдомассив всех иконок-крестиков на попапах
+
+
