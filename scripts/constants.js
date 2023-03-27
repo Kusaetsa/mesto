@@ -54,8 +54,9 @@ const popupImage = document.querySelector('.popup_image'); //попап с ка�
 const imageContainer = popupImage.querySelector('.popup__container'); //получаем контейнер изображения
 const popupBg = popupImage.querySelector('.popup__image'); //получаем изображение
 const imageCaption = popupImage.querySelector('.popup__caption'); //получаем подпись к изображению
-const buttonSubmitAddForm = document.querySelector('[name="add-popup-button"]'); //кнопка "создать" - добавление новой карточки
+const buttonSubmitAddForm = document.querySelector('[name="add-popup-button"]'); //сабмит добавление новой карточки
 const buttonSubmitEditForm = document.querySelector('[name="edit-popup-button"]'); //сабмит формы пользователя
 const buttonCloseList = document.querySelectorAll('.popup__close-icon'); //псевдомассив всех иконок-крестиков на попапах
 
-
+export {initialCards, validationOptions, buttonEdit, profileName, profileInfo, formEdit, nameInput, jobInput, buttonAddCard, formAddCard, cardContainer, template, placeInput, linkInput, popupEditProfile,
+  popupAddCard, popupImage, imageContainer, popupBg, imageCaption, buttonSubmitAddForm, buttonSubmitEditForm, buttonCloseList}

@@ -11,12 +11,12 @@ class Card {
     return cardElement;
     }
 
-    renderCards = () => {
+    renderCard = () => {
       this._element = this._getTemplate();
       this._element.querySelector('.element__image').src = this._link;
       this._element.querySelector('.element__title').textContent = this._name;
       this._element.querySelector('.element__image').setAttribute('alt', this._name);
-      this._element.querySelector('.element__image').addEventListener('click', this._openImage);
+      this._element.querySelector('.element__image').addEventListener('click', () => this._openImage(this._name, this._link));
       this._element.querySelector('.element__delete-button').addEventListener('click', this._handleDelete);
       this._element.querySelector('.element__like').addEventListener('click', this._handleLike);
 
@@ -24,7 +24,8 @@ class Card {
     }
     
     _handleDelete = () => {
-      this._element.remove()
+      this._element.remove();
+      this._element = null;
     };
     
     _handleLike = () => {

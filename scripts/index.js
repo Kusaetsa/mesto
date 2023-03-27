@@ -1,3 +1,5 @@
+import {initialCards, validationOptions, buttonEdit, profileName, profileInfo, formEdit, nameInput, jobInput, buttonAddCard, formAddCard, cardContainer, template, placeInput, linkInput, popupEditProfile,
+  popupAddCard, popupImage, imageContainer, popupBg, imageCaption, buttonSubmitAddForm, buttonSubmitEditForm, buttonCloseList} from './constants.js';
 import Card from './card.js';
 import FormValidator from './formValidator.js';
 
@@ -37,26 +39,27 @@ const closeByOverlay = (evt) => {
   }
 }
 
-const openImage = (evt) => { 
-  const thisItem = evt.target.closest('.element'); //определяем родителя кликнутого элемента 
-  const thisImage = thisItem.querySelector('.element__image'); //находим изображение 
-  const thisCaption = thisItem.querySelector('.element__title'); //находим название места 
-  popupBg.src = thisImage.src; //выводим актуальную картинку 
-  imageCaption.textContent = thisCaption.textContent; //выводим актуальную подпись 
+const openImage = (name, link) => { 
+  popupBg.src = link; //выводим актуальную картинку 
+  imageCaption.textContent = name; //выводим актуальную подпись 
+  popupBg.setAttribute('alt', name); //альт к картинке
   openPopup(popupImage); //открываем попап с картинкой 
 } 
 
-initialCards.forEach(({name, link}) => { 
-  const card = new Card ({name, link}, '#card-template', openImage); //создаем экземпляры класса для дефолтных карточек
-  const cardElement = card.renderCards(); //отрисовываем карточки
-  cardContainer.prepend(cardElement);
+const createCard = ({name, link}) => {
+  const cardElement = new Card ({name, link}, '#card-template', openImage).renderCard();
+  return cardElement; 
+}
+
+initialCards.forEach(({name, link}) => {
+  const cardElement = createCard({name, link}); 
+  cardContainer.prepend(cardElement); //отрисовка дефолтных карточек
 });
 
-function addCard(evt) {
+function addCard(evt) { //добавление новой карточки
     evt.preventDefault();
-    const card = new Card ({name: placeInput.value, link: linkInput.value}, '#card-template', openImage); //создаем экземпляр класса для новой карточки
-    const cardElement = card.renderCards(); //отрисовываем новую карточку
-    cardContainer.prepend(cardElement);
+    const cardElement = createCard({name: placeInput.value, link: linkInput.value}); 
+    cardContainer.prepend(cardElement); 
     formAddCard.reset(); //очищаем форму
     closePopup(popupAddCard);  //закрываем попап
 }
@@ -66,23 +69,10 @@ const handleOpenPopupProfile = () => {
   jobInput.value = profileInfo.textContent;
 }
 
-const clearAllErrors = (form) => { //очистка сообщений об ошибках для открытия форм;
-  const inputs = Array.from(form.querySelectorAll('.popup__item')); 
-  inputs.forEach((inputElement) => { //снимаем классы ошибок во всех инпутах формы
-    inputElement.classList.remove('popup__item-error_active');
-    inputElement.classList.remove('popup__item_type_error');
-  });
-  const errorMessages = Array.from(form.querySelectorAll('.popup__item-error'));
-  errorMessages.forEach((errorElemtnt) => { //очищаем все спаны с ошибками в форме
-    errorElemtnt.textContent = '';
-  });
-}
-
 buttonEdit.addEventListener('click', () => {  //открытие попапа редактирования профиля
   handleOpenPopupProfile();
-  buttonSubmitEditForm.classList.remove('popup__button_inactive');
-  buttonSubmitEditForm.removeAttribute('disabled');//делаем кнопку активной по дефолту, т.к. сохранить с невалидными данными эту форму нельзя
-  clearAllErrors(formEdit); //удаляем возможные сообщения об ошибках
+  ValidationFormEdit.enableButton(); //кнопка активна при открытии
+  ValidationFormEdit.clearErrorMessage(); //очистка сообщений об ошибках
   openPopup(popupEditProfile);
 });
 
@@ -90,9 +80,8 @@ formEdit.addEventListener('submit', changeProfileInfo); //отправка фо�
 
 buttonAddCard.addEventListener('click', () => { //открытие попапа добавления карточки
     formAddCard.reset(); //очищаем форму добавления карточки
-    buttonSubmitAddForm.classList.add('popup__button_inactive');
-    buttonSubmitAddForm.setAttribute('disabled', true);//кнопка не активна по-дефолту
-    clearAllErrors(formAddCard); //удаляем возможные сообщения об ошибках
+    ValidationFormAddCard.disableButton(); //кнопка не активна при открытии 
+    ValidationFormAddCard.clearErrorMessage(); //очистка сообщений об ошибках
     openPopup(popupAddCard); 
  }); 
  
