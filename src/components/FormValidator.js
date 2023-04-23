@@ -6,7 +6,6 @@ class FormValidator {
     this._disabledButtonClass = options.disabledButtonClass; // popup__button_inactive
     this._errorMessageClass = options.errorMessageClass; // popup__item-error_active
     this._errorFieldClass = options.errorFieldClass; // popup__item_type_error
-    //this._formSelector = options.formSelector; // popup
     this._inputSectionSelector = options.inputSectionSelector; // popup__form-section
     this._formElement = formElement;
     this._inputsList = Array.from(this._formElement.querySelectorAll(this._inputSelector));

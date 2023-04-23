@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+
 
   <title>Mesto Russia</title>  
 </head>
@@ -12,7 +12,7 @@
 
 <div class="root">
     <header class="header">
-        <img src="./images/header-logo.svg" class="header__logo" alt="логотип место">
+        <img src=<%=require("./images/header-logo.svg")%> class="header__logo" alt="логотип место">
     </header>
 
     <main class="main">
@@ -64,7 +64,7 @@
             <form class="popup__form" name="add-popup-form" method="post" novalidate>
                 <div class="popup__input-container">
                     <div class="popup__form-section">
-                        <input id="place-input" type="text" class="popup__item popup__item_el_place" name="place" placeholder="Название" required  minlength="2" maxlength="30">
+                        <input id="place-input" type="text" class="popup__item popup__item_el_place" name="name" placeholder="Название" required  minlength="2" maxlength="30">
                         <span class="place-input-error popup__item-error"></span>
                     </div> 
                     <div class="popup__form-section">
@@ -98,6 +98,6 @@
         </article>
     </template> 
  
-<script src="./scripts/index.js" type="module"></script>
+
 </body>
 </html>
