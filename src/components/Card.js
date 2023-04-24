@@ -20,9 +20,10 @@ class Card {
 
     renderCard() {
       this._element = this._getTemplate();
-      this._element.querySelector('.element__image').src = this._link;
+      this._image = this._element.querySelector('.element__image');
+      this._image.src = this._link;
       this._element.querySelector('.element__title').textContent = this._name;
-      this._element.querySelector('.element__image').setAttribute('alt', this._name);
+      this._image.setAttribute('alt', this._name);
       this._setEventListeners();
 
       return this._element;
@@ -43,10 +44,3 @@ class Card {
 
 export default Card;
 
-
-/*
-Преобразуйте класс Card
-Свяжите класс Card c попапом. 
-Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick. 
-Эта функция должна открывать попап с картинкой при клике на карточку.
-*/

@@ -15,10 +15,10 @@ validationFormEdit.enableValidation();
 const validationFormAddCard = new FormValidator(validationOptions, formAddCard);
 validationFormAddCard.enableValidation();
 
+const popupOpenImage = new PopupWithImage(popupImage);
+popupOpenImage.setEventListeners();
 
 const handleCardClick = (name, link) => { //открытие попапа картинки
-  const popupOpenImage = new PopupWithImage(popupImage);
-  popupOpenImage.setEventListeners();
   popupOpenImage.open(name, link);
 }
 
@@ -43,7 +43,7 @@ const userInformation = new UserInfo({ //экземпляр класса инф�
 });
 
 const editProfileInfo = new PopupWithForm({ //попап редактирования профиля
-  popupSelector: popupEditProfile,
+  popupElement: popupEditProfile,
   handleFormSubmit: ({ name, about }) => {
     userInformation.setUserInfo({ name, about });
     editProfileInfo.close();
@@ -52,16 +52,16 @@ const editProfileInfo = new PopupWithForm({ //попап редактирова�
 editProfileInfo.setEventListeners();
 
 buttonEdit.addEventListener('click', () => {  //открытие попапа редактирования профиля
-  const obj = userInformation.getUserInfo();
-  nameInput.value = obj.name; //подтягиваем данные из инфы в профиле
-  jobInput.value = obj.about; 
+  const userInfo = userInformation.getUserInfo();
+  nameInput.value = userInfo.name; //подтягиваем данные из инфы в профиле
+  jobInput.value = userInfo.about; 
   validationFormEdit.enableButton(); //кнопка активна при открытии
   validationFormEdit.clearErrorMessage(); //очистка сообщений об ошибках
   editProfileInfo.open();
 });
 
 const addNewCard = new PopupWithForm({ //попап добавления карточки
-  popupSelector: popupAddCard, 
+  popupElement: popupAddCard, 
   handleFormSubmit: (formData) => {
     const card = createCard(formData);
     defaultCardList.addItem(card);
