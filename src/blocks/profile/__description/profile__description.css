@@ -1,9 +1,9 @@
 .profile__description {
-    padding-left: 30px;
+    column-gap: 18px;
     display: grid;
     grid-template-columns: auto 24px;
-    grid-template-rows: 39px 18px;
-    column-gap: 18px;
+    grid-template-rows: 40px 19px;
+    padding-left: 30px;
     row-gap: 16px;
 }
 

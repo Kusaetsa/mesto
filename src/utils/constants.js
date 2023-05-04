@@ -1,30 +1,3 @@
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ]; 
-
 const validationOptions = {
   formSelector: '.popup',
   buttonSelector: '.popup__button',
@@ -45,7 +18,14 @@ const validationOptions = {
   const popupEditProfile = document.querySelector('.popup_edit-form'); // попап редактирование профиля
   const popupAddCard = document.querySelector('.popup_add-card'); // попап добавления карточки
   const popupImage = document.querySelector('.popup_image'); //попап с картинкой
+  const userName = document.querySelector('.profile__name'); //имя профиля
+  const userAbout = document.querySelector('.profile__about'); //информация о пользователе
+  const userAvatar = document.querySelector('.profile__image'); //аватар пользователя
+  const popupDeleteCard = document.querySelector('.popup_delete-card'); //попап удаления карточки
+  const avatarEdit = document.querySelector('.profile__edit-avatar'); //див редактирования аватара
+  const popupEditAvatar = document.querySelector('.popup_edit-avatar'); //попап редактирования аватара
+  const formEditAvatar = document.querySelector('[name="edit-avatar-form"]'); //форма загрузки ссылки на аватар
 
 
-export {initialCards, validationOptions, buttonEdit, formEdit, nameInput, jobInput, buttonAddCard, formAddCard, popupEditProfile,
-  popupAddCard, popupImage}
+export {validationOptions, buttonEdit, formEdit, nameInput, jobInput, buttonAddCard, formAddCard, popupEditProfile,
+  popupAddCard, popupImage, userName, userAbout, userAvatar, popupDeleteCard, avatarEdit, popupEditAvatar, formEditAvatar}

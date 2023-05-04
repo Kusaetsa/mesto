@@ -6,19 +6,28 @@ class PopupWithForm extends Popup {
         this._handleFormSubmit = handleFormSubmit;
         this._form = this._popupElement.querySelector('.popup__form');
         this._inputList = Array.from(this._popupElement.querySelectorAll('.popup__item'));
+        this._submitButton = this._popupElement.querySelector('.popup__button');
     }
 
     _getInputValues() { //получаем значения полей формы в объект
-        this._inputValues = {};
-        this._inputList.forEach((input) => {
-            this._inputValues[input.name] = input.value;
+        this._inputValues = {}; //создает пустой объект
+        this._inputList.forEach((input) => { //обходит все инпуты и 
+            this._inputValues[input.name] = input.value; //записывет данные с инпутов
         });
-        return this._inputValues;
+        return this._inputValues; //возвращает объект с данными которые ввели в форму
     }
 
     close() {
         super.close();
         this._form.reset();
+    }
+
+    renderLoading(isLoading, buttonText) {
+        if (isLoading) {
+            this._submitButton.textContent = buttonText;
+        } else {
+            this._submitButton.textContent = buttonText;
+        }
     }
 
     setEventListeners() {
