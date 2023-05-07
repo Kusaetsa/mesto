@@ -1,7 +1,7 @@
 import Popup from "./Popup.js";
 
 class PopupConfirmDelete extends Popup {
-    constructor ({ popupElement}) {
+    constructor({ popupElement }) {
         super(popupElement);
         this._buttonDelete = this._popupElement.querySelector('.popup__button');
     }
@@ -16,8 +16,7 @@ class PopupConfirmDelete extends Popup {
         super.setEventListeners();
         this._buttonDelete.addEventListener('click', () => {
             this.confirmDelete();
-            this.close();
-        }); 
+        });
     }
 }
 

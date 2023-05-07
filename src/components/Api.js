@@ -1,35 +1,36 @@
 class Api {
-    constructor(config) {
-        this._url = config.url;
-        this._headers = config.headers;
-    }
+  constructor(config) {
+    this._url = config.url;
+    this._headers = config.headers;
+  }
 
-getInitialCardsFromServer() {
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  getInitialCardsFromServer() {
     return fetch(`${this._url}cards`, {
-        method: 'GET',
-        headers: this._headers
+      method: 'GET',
+      headers: this._headers
     })
-    .then (res => {
-        if (res.status === 200) {
-            return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      .then(
+        this._checkResponse
+      )
   };
-  
+
   getUserInfoFromServer() {
     return fetch(`${this._url}users/me`, {
       method: 'GET',
       headers: this._headers
-  })
-  .then (res => {
-    if (res.status === 200) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    })
+      .then(
+        this._checkResponse
+      )
   };
-  
+
   setUserInfoOnServer(data) {
     return fetch(`${this._url}users/me`, {
       method: 'PATCH',
@@ -38,45 +39,35 @@ getInitialCardsFromServer() {
         name: data.name,
         about: data.about
       })
-  })
-  .then (res => {
-    if (res.status === 200) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+    })
+      .then(
+        this._checkResponse
+      )
   };
 
   addNewCardOnServer(data) {
     return fetch(`${this._url}cards`, {
-        method: 'POST',
-        headers: this._headers,
-        body: JSON.stringify({
-          name: data.name,
-          link: data.link,
-          likes: data.likes
-        })
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+        likes: data.likes
+      })
     })
-    .then (res => {
-      if (res.status === 200) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-
+      .then(
+        this._checkResponse
+      )
   };
 
   deleteMyCard(id) {
-    return fetch (`${this._url}cards/${id}`, {
+    return fetch(`${this._url}cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then (res => {
-      if (res.status === 200) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      .then(
+        this._checkResponse
+      )
   };
 
   editAvatarImage(data) {
@@ -86,42 +77,60 @@ getInitialCardsFromServer() {
       body: JSON.stringify({
         avatar: data.avatar,
       })
-  })
-  .then (res => {
-    if (res.status === 200) {
-        return res.json();
-    }
-    return Promise.reject(`Ошибка api: ${res.status}`);
-  })
+    })
+      .then(
+        this._checkResponse
+      )
   }
 
   putLikeOnCard(id) {
-    return fetch (`${this._url}cards/${id}/likes`, {
+    return fetch(`${this._url}cards/${id}/likes`, {
       method: 'PUT',
       headers: this._headers,
     })
-    .then (res => {
-      if (res.status === 200) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      .then(
+        this._checkResponse
+      )
   };
 
   removeLikeFromCard(id) {
-    return fetch (`${this._url}cards/${id}/likes`, {
+    return fetch(`${this._url}cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers,
     })
-    .then (res => {
-      if (res.status === 200) {
-          return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+      .then(
+        this._checkResponse
+      )
   };
 
 }
 
 
 export default Api;
+
+
+
+
+/*
+  _request(url, options) {
+    return fetch(url, options).then(this._checkResponse);
+  }
+
+
+  getInitialCardsFromServer() {
+    this._request(`${this._url}cards`, {
+        method: 'GET',
+        headers: this._headers
+      }
+    )
+  }
+
+  getUserInfoFromServer() {
+    this._request(`${this._url}users/me`, {
+        method: 'GET',
+        headers: this._headers
+      }
+    )
+  }
+
+  */

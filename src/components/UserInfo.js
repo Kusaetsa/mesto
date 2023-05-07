@@ -1,5 +1,5 @@
 class UserInfo {
-    constructor( {userNameSelector, userInfoSelector, userAvatarSelector} ) {
+    constructor({ userNameSelector, userInfoSelector, userAvatarSelector }) {
         this._userName = document.querySelector(userNameSelector);
         this._userInfo = document.querySelector(userInfoSelector);
         this._userAvatar = document.querySelector(userAvatarSelector);
@@ -12,14 +12,20 @@ class UserInfo {
         }
     }
 
-    setUserInfo(data) { 
-        this._userName.textContent = data.name;
-        this._userInfo.textContent = data.about;
+    editAvatar(avatar) {
+        this._userAvatar.style.backgroundImage = `url(${avatar})`;
     }
 
-    editAvatar(data) { 
-        this._userAvatar.style.backgroundImage = `url(${data.avatar})`;
+
+    setUserInfo( {name, about, avatar, _id} ) {
+        this._userName.textContent = name;
+        this._userInfo.textContent = about;
+        this.editAvatar(avatar);
+        this._userId = _id;
+        return this._userId;
     }
+
+
 }
 
 export default UserInfo;
